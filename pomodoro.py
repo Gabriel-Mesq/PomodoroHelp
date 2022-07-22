@@ -1,5 +1,6 @@
-import pyautogui as ag
+from pyautogui import alert
 import PySimpleGUI as sg
+import winsound
 import time
 
 sg.theme('Black')
@@ -19,7 +20,7 @@ window = sg.Window('Running Timer', layout,
                    element_justification='c')
 
 def Pomodoro(time_sec):
-    while time_sec:
+    while time_sec > -1:
         
         event, values = window.read(timeout=10)
         mins, secs = divmod(time_sec, 60)
@@ -28,25 +29,27 @@ def Pomodoro(time_sec):
         time_sec -= 1
 
         if event in (sg.WIN_CLOSED, 'Exit'):      
-            break
+            exit() 
 
         window['text'].update(current_time)
                                                                                             
-    window.close()
-
 while True:
    
     for i in range(4):
         
-        ag.alert('Confirme para iniciar sua sessão de pomodoro.\n25 minutos de foco')
-        Pomodoro(25)
+        winsound.Beep(500, 1000)
+        alert('Confirme para iniciar sua sessão de pomodoro.\n25 minutos de foco')
+        Pomodoro(25*60)
    
         if i < 3:
-            ag.alert('Confirme para inciar sua sessão de desacanso.\n5 minutos de intervalo')
-            Pomodoro(5)
+            winsound.Beep(500, 1000)
+            alert('Confirme para inciar sua sessão de desacanso.\n5 minutos de intervalo')
+            Pomodoro(5*60)
         else:
-            ag.alert('Confirme para inciar sua sessão de desacanso extendido.\n15 minutos de intervalo')
-            Pomodoro(15)
+            winsound.Beep(500, 1000)
+            alert('Confirme para inciar sua sessão de desacanso extendido.\n15 minutos de intervalo')
+            Pomodoro(15*60)
+            
             
 '''
 focused word: 25 min
